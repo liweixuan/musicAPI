@@ -24,7 +24,6 @@ exports.API = {
 		getNoMustParams : {
 		  fid  : 'NUMBER'
 	    }
-
 	},
 
 	//更新本地保存的地址信息
@@ -691,8 +690,15 @@ exports.API = {
 			 m_cid    : 'NUMBER',
 			 m_status : 'NUMBER'
 		}
-	}
+	},
 
+	/********** 测试相关 **********/
+	"/_test/aaa" : {
+		method : 'GET',
+		getNoMustParams : {
+			a_id : 'NUMBER'
+		}
+	},
 };
 
 

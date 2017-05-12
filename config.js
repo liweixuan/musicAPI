@@ -15,11 +15,11 @@ exports.configInfo = {
 
   /*** mysql配置 ***/
   mysql : {
-    host      : "127.0.0.1",
+    host      : "120.27.4.237",
     user     	: "root",
-    password 	: "",
+    password 	: "123.com",
     port			: 3306,
-    database	: "musicUtopia"
+    database	: "musicutopia"
   },
 
   /*** redis缓存数据库配置 ***/

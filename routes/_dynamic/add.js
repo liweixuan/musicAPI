@@ -20,6 +20,7 @@ exports.add = function(req,res) {
 
     //构建任务流
     async.waterfall([
+        
         //新增动态信息
         function(cb){
 
