@@ -10,6 +10,13 @@ exports.addUserConcern = function(req,res) {
         //判断是否已经关注过该用户
         function(cb){
 
+            //判断是否在关注自己
+            if(bodyParams.uc_uid == bodyParams.uc_concern_id){
+
+                return RES.response(res,false,"抱歉，您不能关注您自己");
+
+            }
+
             db.where(bodyParams).select("mu_user_concern",function(result){
 
                 if(result == 'ERROR'){

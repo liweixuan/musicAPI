@@ -26,9 +26,32 @@ exports.API = {
 	    }
 	},
 
+	//获取全部地理位置信息
+	"/_common/allLocation" : {
+		method : 'GET'
+	},
+
 	//更新本地保存的地址信息
 	"/_common/updateLocation" : {
 		method : 'POST'
+	},
+
+	//获取当前设备类型的最新版本 NO DOCS
+	"/_common/getVersion" : {
+		method : 'GET',
+		getMustParams : {
+			type : ''
+		}
+	},
+
+	/********** 短信相关接口 **********/
+
+	//发送注册时获取验证码短信
+	"/_sms/registerCode" : {
+		method : 'POST',
+		postMustParams : {
+			phone : 'NUMBER'
+		}
 	},
 
 	/********** 乐器类别相关接口 **********/
@@ -117,6 +140,14 @@ exports.API = {
 		}
 	 },
 
+	 //删除动态信息 NO DOCS
+	 "/_dynamic/delete" : {
+		method : 'POST',
+		postMustParams : {
+			d_id 	 : ''
+		}
+	 },
+
 	/********** 伙伴相关 **********/
 
 	//找伙伴信息获取
@@ -148,12 +179,48 @@ exports.API = {
 
 	//申请好友
 	"/_friends/apply" : {
-		method : 'POST'
+		method : 'POST',
+		postMustParams : {
+			sponsorUsername : '',
+			receiveUsername : ''
+		}
 	},
 
-	/** 
-	 * 用户相关接口
-	 **/
+	//删除好友 NO DOCS
+	"/_friends/delete" : {
+		method : 'POST',
+		postMustParams : {
+			f_username  : '',
+			f_fusername : ''
+		}
+	},
+
+	//获取好友请求信息
+	"/_friends/applySearch" : {
+		method : 'GET',
+		getMustParams : {
+			username : ''
+		}
+	},
+
+	//同意或拒绝好友请求
+	"/_friends/agreeOrRefuse" : {
+		method : 'POST',
+		postMustParams : {
+			frl_id : '',
+			type   : ''
+		}
+	},
+
+	//获取用户的好友列表 UPDATE DOCS
+	"/_friends/searchFriends" : {
+		method : 'GET',
+		getMustParams : {
+			f_username : ''
+		}
+	},
+
+	/********** 用户相关接口  **********/
 
 	 //关注某用户
 	 "/_user/addUserConcern" : {
@@ -173,11 +240,29 @@ exports.API = {
 		 }
 	 },
 
-	 //获取用户详细信息
+	 //获取用户详细信息(包括好友数，团体数等等) UPDATE DOCS
 	 "/_user/info" : {
 		method : 'GET',
 		getMustParams : {
-			u_id : 'NUMBER'
+			u_id 	   : 'NUMBER',
+			u_username : ''
+		}
+	 },
+
+	 //获取用户基本信息，包含是否为好友的判断 ADD DOCS
+	 "/_user/infoAndIsFriend" : {
+		method : 'GET',
+		getMustParams : {
+			u_username : '',
+			f_username : ''
+		}
+	 },
+
+	 //获取用户基本信息（基础个人信心）（使用用户帐号）
+	 "/_user/basicInfo" : {
+		method : 'GET',
+		getMustParams : {
+			u_username : ''
 		}
 	 },
 
@@ -207,9 +292,218 @@ exports.API = {
 			 u_is_delete 		  : '',
 			 u_is_vip 			  : '',
 			 u_is_zhubo 		  : '',
-			 u_audio_url		  : ''
+			 u_audio_url		  : '',
+			 u_location 		  : '',
+			 u_age 		  		  : ''
 		 }
 	 },
+
+	 //注册用户
+	 "/_user/register" : {
+		method : 'POST',
+		postMustParams : {
+			 u_username 	   : '',
+			 u_password		   : '',
+			 u_sex		       : '',
+			 u_header_url	   : '',
+			 u_nickname 	   : '',
+			 u_good_instrument : ''
+		},
+
+	 },
+
+	 //验证手机短信码是否正确
+	 "/_user/verifyPhoneCode" : {
+		method : 'POST',
+		postMustParams : {
+			 phone : '',
+			 code  : ''
+		},
+
+	 },
+
+	 //用户登录
+	 "/_user/login" : {
+		method : 'POST',
+		postMustParams : {
+			 u_username : '',
+			 u_password : ''
+		},
+
+	 },
+
+	 //根据精确条件筛选用户
+	 "/_user/accurateSearch" : {
+		method : 'GET',
+		getNoMustParams : {
+			 u_sex 		: '',
+			 ul_cid 	: '',
+			 ul_level 	: '',
+			 u_province : '',
+			 u_city 	: '',
+			 u_district : ''
+		},
+	 },
+
+	 //存储更新用户位置信息
+	 "/_user/updateUserLocation" : {
+		method : 'POST',
+		postMustParams : {
+			 userid    : '',
+			 username  : '',
+			 nickname  : '',
+			 headerUrl : '',
+			 sex 	   : '',
+			 longitude : '',
+			 latitude  : ''
+		},
+	 },
+
+	 //根据经纬度获取附近的用户列表
+	 "/_user/lookAroundSearch" : {
+		method : 'GET',
+		getMustParams : {
+			 longitude : '',
+			 latitude  : '',
+		},
+
+	 },
+
+	 //获取上传有交友音频的用户
+	 "/_user/radioSearch" : {
+		method : 'GET'
+	 },
+
+	 //获取所有关注的用户
+	 "/_user/concernSearch" : {
+		method : 'GET',
+		getMustParams : {
+			u_id : ''
+		}
+	 },
+
+	 //获取某用户所在的团体 UPDATE DOCS
+	 "/_user/organizationSearch" : {
+		method : 'GET',
+		getMustParams : {
+			u_username : ''
+		}
+	 },
+
+	 //上传个人演奏集视频 NO DOCS
+	 "/_user/addPlayVideo" : {
+		method : 'POST',
+		postMustParams : {
+			upv_url  	   : '',
+			upv_name 	   : '',
+			upv_uid 	   : '',
+			upv_image_url  : ''
+		}
+	 },
+
+	 //获取个人演奏集视频 NO DOCS
+	 "/_user/searchPlayVideo" : {
+		method : 'GET',
+		getMustParams : {
+			upv_uid	 : ''
+		}
+	 },
+
+	 //删除人演奏集视频 NO DOCS
+	 "/_user/deletePlayVideo" : {
+		method : 'POST',
+		postMustParams : {
+			upv_id	 : ''
+		}
+	 },
+
+	 //获取用户参与的比赛 NO DOCS
+	 "/_user/getPartakeMatch" : {
+		method : 'GET',
+		getMustParams : {
+			mpu_uid	 : '',
+			type     : ''  //0-正在进行的 1-历史参与的赛事
+		}
+	 },
+
+	 //用户退出比赛 NO DOCS
+	 "/_user/quitMatch" : {
+		method : 'POST',
+		postMustParams : {
+			u_id : '',
+			m_id : ''
+		}
+	 },
+
+	 //获取当前用户的所有乐器等级 NO DOCS
+	 "/_user/allInstrumentLevel" : {
+		method : 'GET',
+		getMustParams : {
+			u_id : ''
+		}
+	 },
+
+	 //获取升级演奏的曲谱 NO DOCS
+	 "/_user/upgradeMusicScore" : {
+		method : 'GET',
+		getMustParams : {
+			uclms_cid   : '',
+			uclms_level : ''
+		}
+	 },
+
+	 //新增升级评测申请 NO DOCS
+	 "/_user/upgradeApply" : {
+		method : 'POST',
+		postMustParams : {
+			uuv_video_url : '',
+			uuv_uid 	  : '',
+			uuv_image_url : '',
+			uuv_cid 	  : '',
+			uuv_level 	  : ''
+		}
+	 },
+
+	//申请加入团队 NO DOCS
+	"/_user/applyAddOrganization" : {
+		method : 'POST',
+		postMustParams : {
+			u_username 		  : '',
+			o_id 		 	  : '',
+			o_name			  : '',
+			o_create_username : ''
+		},
+		postNoMustParams : {
+			note : ''
+		}
+	},
+
+	//判断和某用户是否为好友关系 NO DOCS
+	"/_user/isFriends" : {
+		method : 'POST',
+		postMustParams : {
+			u_username   : '',
+			f_username 	 : ''
+		}
+	},
+
+	//获取用户升级时所演奏的视频 NO DOCS
+	"/_user/upgradeVideo" : {
+		method : 'GET',
+		getMustParams : {
+			uuv_uid   : '',
+			uuv_cid   : ''
+		}
+	},
+
+	//获取用户为团长的团体 NO DOCS
+	 "/_user/createUserOrganization" : {
+		method : 'GET',
+		getMustParams : {
+			o_create_userid : ''
+		}
+	 },
+
 
 	/********** 团体相关 **********/
 	
@@ -269,18 +563,69 @@ exports.API = {
 		}
 	},
 
-	//创建团体
+	//创建团体 UPDATE DOCS
 	"/_organization/add" : {
 		method : 'POST',
 		postMustParams : {
-			o_name 		    : '',
-			o_logo 			: '',
-			o_cover			: '',
-			o_province 		: '',
-			o_city 			: '',
-			o_district 		: '',
-			o_type 			: '',
-			o_create_userid : ''
+			o_name 		    	: '',
+			o_logo 				: '',
+			o_cover				: '',
+			o_province 			: '',
+			o_city 				: '',
+			o_district 			: '',
+			o_type 				: '',
+			o_motto 			: '',
+			o_desc 				: '',
+			o_ask 				: '',
+			o_create_userid 	: '',
+			o_create_username   : ''
+		}
+	},
+
+	//获取团体请求信息 NO DOCS
+	"/_organization/applySearch" : {
+		method : 'GET',
+		getMustParams : {
+			oa_create_username : ''
+		}
+	},
+
+	//同意或拒绝团体请求 NO DOCS
+	"/_organization/agreeOrRefuse" : {
+		method : 'POST',
+		postMustParams : {
+			oa_id  : '',
+			type   : ''
+		}
+	},
+
+	//更新团体信息 NO DOCS
+	"/_organization/updateInfo" : {
+		method : 'POST',
+		postMustParams : {
+			o_id  : ''
+		},
+		postNoMustParams : {
+			o_name : '',
+			o_logo : '',
+			o_cover : '',
+			o_province : '',
+			o_city : '',
+			o_district : '',
+			o_address : '',
+			o_type : '',
+			o_motto : '',
+			o_desc : '',
+			o_ask : '',
+			o_video_url : ''
+		}
+	},
+
+	//禁言团体中的某用户 NO DOCS
+	"/_organization/gagUser" : {
+		method : 'POST',
+		postMustParams : {
+			
 		}
 	},
 
@@ -692,13 +1037,133 @@ exports.API = {
 		}
 	},
 
-	/********** 测试相关 **********/
-	"/_test/aaa" : {
-		method : 'GET',
-		getNoMustParams : {
-			a_id : 'NUMBER'
+	//参与比赛 NO DOCS
+	"/_match/partake" : {
+		method : 'POST',
+		postMustParams : {
+			mpu_mid : '',
+			mpu_uid : '',
+			mpu_video_url : ''
 		}
 	},
+
+	//获取比赛详细 NO DOCS
+	"/_match/detail" : {
+		method : 'GET',
+		getMustParams : {
+			match_id : ''
+		}
+	},
+
+	//获取某用户的比赛视频评论  NO DOCS
+	"/_match/userVideoComment": {
+		method : 'GET',
+		getMustParams : {
+			mvc_mpuid : ''
+		}
+	},
+
+	//新增视频评论  NO DOCS
+	"/_match/addUserVideoComment" : {
+		method : 'POST',
+		postMustParams : {
+			mvc_content : '',
+			mvc_mpuid   : '',
+			mvc_uid     : ''
+		}
+	},
+
+	//为比赛用户投票  NO DOCS
+	"/_match/matchVote" : {
+		method : 'POST',
+		postMustParams : {
+			mv_mid 		: '',
+			mv_votee_id : '',
+			mv_voter_id : '',
+			mpu_id 		: '',
+		}
+	},
+
+	/********** 团体相关 **********/
+
+	/********** 融云相关 **********/
+	"/_rongCloud/getToken" : {
+		method : 'POST',
+		postMustParams : {
+			userId      : "",
+			name        : "",
+			portraitUri : ""
+		}
+	},
+
+
+	/********** 乐谱相关 **********/
+
+	//获取曲谱分类信息 NO DOCS
+	"/_musicScore/getCategory" : {
+		method : 'GET'
+	},
+
+	//根据分类获取相应曲谱 NO DOCS
+	"/_musicScore/getMusicScore" : {
+		method : 'GET',
+		getMustParams : {
+			ms_mscid : ''
+		},
+		getNoMustParams : {
+			ms_name : ''
+		}
+	},
+ 
+	//获取曲谱详细 NO DOCS
+	"/_musicScore/getMusicScoreDetail" : {
+		method : 'GET',
+		getMustParams : {
+			ms_id : ''
+		}
+	},
+
+	//收藏曲谱 NO DOCS
+	"/_musicScore/collectMusicScore" : {
+		method : 'POST',
+		postMustParams : {
+			ms_id : '',
+			u_id  : ''
+		}
+	},
+
+	//用户删除收藏的曲谱 NO DOCS
+	"/_musicScore/deleteCollectMusicScore" : {
+		method : 'POST',
+		postMustParams : {
+			cms_id : ''
+		}
+	},
+
+	//获取用户收藏的曲谱 NO DOCS
+	"/_musicScore/collectMusicScoreSearch" : {
+		method : 'GET',
+		getMustParams : {
+			u_id  : ''
+		}
+	},
+
+	//更新被搜索曲谱的热度数 NO DOCS
+	"/_musicScore/addMusicScoreHot" : {
+		method : 'POST',
+		postMustParams : {
+			ms_id  : ''
+		}
+	},
+
+	//记录曲谱搜索热度词 NO DOCS
+	"/_musicScore/hotSearchKeyword" : {
+		method : 'POST',
+		postMustParams : {
+			mshk_name  : ''
+		}
+	}
+
 };
 
 

@@ -61,8 +61,9 @@ exports.search = function(req,res) {
         //获取动态信息
         function(cb){
 
-            db.field(fields).where(searchParams).limit(restful.skip,restful.limit).select("v_find_partner_user",function(result){
+            db.field(fields).where(searchParams).order("fp_id desc").limit(restful.skip,restful.limit).select("v_find_partner_user",function(result){
 
+                console.log(result);
                 if(result == 'ERROR'){
                     return RES.response(res,false,"找伙伴信息获取失败");
                 }
@@ -79,9 +80,19 @@ exports.search = function(req,res) {
 		function(cb){
 
 			for(var i = 0;i<findPartnerData.length;i++){
-				findPartnerData[i].fp_province_name = locationData[findPartnerData[i].fp_province].name;
-				findPartnerData[i].fp_city_name 	= locationData[findPartnerData[i].fp_city].name;
-				findPartnerData[i].fp_district_name = locationData[findPartnerData[i].fp_district].name;
+
+                if(findPartnerData[i].fp_province){
+                    findPartnerData[i].fp_province_name = locationData[findPartnerData[i].fp_province].name;
+                }
+
+                if(findPartnerData[i].fp_city){
+                    findPartnerData[i].fp_city_name 	= locationData[findPartnerData[i].fp_city].name;
+                }
+
+                if(findPartnerData[i].fp_district){
+                    findPartnerData[i].fp_district_name = locationData[findPartnerData[i].fp_district].name;
+                }
+
 			}
 
 			cb();

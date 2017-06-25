@@ -30,7 +30,7 @@ exports.replyArticle = function(req,res) {
         //更新文章评论数量
         function(cb){
 
-            db.where({a_id:bodyParams.ac_aid}).update({"a_comment_count" : "a_comment_count + 1"},"mu_article",function(result){
+            db.where({a_id:bodyParams.ac_aid}).updateInc("a_comment_count" ,"mu_article",function(result){
                 cb();
             });
         }

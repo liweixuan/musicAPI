@@ -12,14 +12,13 @@ exports.zan = function(req,res) {
         //为评论点赞
         function(cb){
 
-            db.where(searchParams).update({"d_zan_count" : "d_zan_count + 1"},"mu_dynamic",function(result){
+            db.where(searchParams).updateInc("d_zan_count","mu_dynamic",function(result){
 
                 if(result == 'ERROR'){
                     return RES.response(res,false,"动态点赞失败");
                 }
 
                 cb();
-
             });
 
         }

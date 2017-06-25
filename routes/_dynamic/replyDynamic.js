@@ -31,7 +31,7 @@ exports.replyDynamic = function(req,res) {
         //更新动态评论数量
         function(cb){
 
-            db.where({d_id:bodyParams.dc_did}).update({"d_comment_count" : "'d_comment_count' + 1"},"mu_dynamic",function(result){
+            db.where({d_id:bodyParams.dc_did}).updateInc("d_comment_count","mu_dynamic",function(result){
                 cb();
             });
         }

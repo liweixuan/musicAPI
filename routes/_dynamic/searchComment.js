@@ -33,7 +33,7 @@ exports.searchComment = function(req,res) {
         //获取动态信息
         function(cb){
 
-            db.field(fields).where({"dc_did":restful.dc_did,dc_is_delete:0}).limit(restful.skip,restful.limit).select("v_dynamic_comment_user",function(result){
+            db.field(fields).where({"dc_did":restful.dc_did,dc_is_delete:0}).order("dc_id desc").limit(restful.skip,restful.limit).select("v_dynamic_comment_user",function(result){
 
                 if(result == 'ERROR'){
                     return RES.response(res,false,"动态评论获取失败");

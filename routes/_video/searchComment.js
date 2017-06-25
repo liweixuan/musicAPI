@@ -33,7 +33,7 @@ exports.searchComment = function(req,res) {
         //获取视频评论信息
         function(cb){
 
-            db.field(fields).where({"vc_vid":restful.vc_vid,vc_is_delete:0}).limit(restful.skip,restful.limit).select("v_video_comment_user",function(result){
+            db.field(fields).where({"vc_vid":restful.vc_vid,vc_is_delete:0}).order("vc_id desc").limit(restful.skip,restful.limit).select("v_video_comment_user",function(result){
 
                 if(result == 'ERROR'){
                     return RES.response(res,false,"视频评论获取失败");

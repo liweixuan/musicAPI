@@ -10,7 +10,7 @@ exports.search = function(req,res) {
     var searchParams = {};
 
     //判断是否增加视频类别查询
-    if(restful.v_cid != undefined){
+    if(restful.v_cid != undefined && restful.v_cid != 0){
        searchParams.v_cid = restful.v_cid;
     }
     //获取未删除的

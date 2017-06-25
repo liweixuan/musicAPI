@@ -87,6 +87,14 @@ exports.updateInfo = function(req,res) {
        updateParams.u_audio_url = bodyParams.u_audio_url;
     }
 
+    if(bodyParams.u_location != undefined){
+       updateParams.u_location = bodyParams.u_location;
+    }
+
+    if(bodyParams.u_age != undefined){
+       updateParams.u_age = bodyParams.u_age;
+    }
+
     //构建任务流
     async.waterfall([
 

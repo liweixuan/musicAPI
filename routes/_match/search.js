@@ -33,7 +33,7 @@ exports.search = function(req,res) {
         //进行中    
         }else if(restful.m_status == 1){
             
-            attachWhereStr = "m_start_time < " + nowtime + " and m_end_time > " + nowtime ;
+            attachWhereStr = "m_start_time < " + nowtime + " and m_end_time > " + nowtime;
 
         //已结束    
         }else{ 
@@ -72,7 +72,7 @@ exports.search = function(req,res) {
         //获取动态信息
         function(cb){
 
-            db.field(fields).where(searchParams).attachWhere(attachWhereStr).limit(restful.skip,restful.limit).select("v_match_category",function(result){
+            db.field(fields).where(searchParams).attachWhere(attachWhereStr).order("m_id desc").limit(restful.skip,restful.limit).select("v_match_category",function(result){
 
                 if(result == 'ERROR'){
                     return RES.response(res,false,"比赛信息获取失败");

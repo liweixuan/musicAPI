@@ -12,7 +12,7 @@ exports.commentZan = function(req,res) {
         //为评论点赞
         function(cb){
 
-            db.where(searchParams).update({"vc_zan_count" : "vc_zan_count + 1"},"mu_video_comment",function(result){
+            db.where(searchParams).updateInc("vc_zan_count","mu_video_comment",function(result){
 
                 if(result == 'ERROR'){
                     return RES.response(res,false,"视频评论点赞失败");

@@ -12,7 +12,7 @@ exports.commentZan = function(req,res) {
         //为评论点赞
         function(cb){
 
-            db.where(searchParams).update({"ac_zan_count" : "ac_zan_count + 1"},"mu_article_comment",function(result){
+            db.where(searchParams).updateInc("ac_zan_count","mu_article_comment",function(result){
 
                 if(result == 'ERROR'){
                     return RES.response(res,false,"文章评论点赞失败");

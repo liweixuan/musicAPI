@@ -36,7 +36,11 @@ global.regexpRule         = require("./lib/regexpConfig").regexpRule;
 global.redis   			  = require("redis");
 global.request    		  = require('request');
 global.db                 = require('./lib/db');
+global.mongoose 		  = require('mongoose');
 
+//初始化融云SDK操作对象
+global.rongcloudSDK       = require( 'rongcloud-sdk');
+rongcloudSDK.init(config.rongCloudConfig.app_key,config.rongCloudConfig.app_secret);
 
 /**
  * 配置日志信息
@@ -72,6 +76,11 @@ var urlParse  = require("./lib/urlParse");
  * 生成http服务对象
  **/
 global.app = express();
+
+/**
+ * 连接mongodb
+ **/
+require("./lib/mongoose")();
 
 
 /**

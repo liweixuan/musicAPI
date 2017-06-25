@@ -1,8 +1,5 @@
 exports.add = function(req,res) {
 
-    
-    common.sleep(2000);
-
     //获取restful参数
 	var restful    = req.routeInfo.restfulParams;
 
@@ -31,7 +28,9 @@ exports.add = function(req,res) {
                 d_uid         : bodyParams.d_uid,
                 d_tags        : bodyParams.d_tags,
                 d_cid         : bodyParams.d_cid,
-                d_video_type  : bodyParams.d_video_type  == undefined ? 0  : bodyParams.d_location,
+                d_video_type  : bodyParams.d_video_type  == undefined ? 0  : bodyParams.d_video_type,
+                d_video_url   : bodyParams.d_video_url   == undefined ? "" : bodyParams.d_video_url,
+                d_video_image : bodyParams.d_video_image == undefined ? "" : bodyParams.d_video_image,
                 d_location    : bodyParams.d_location    == undefined ? "" : bodyParams.d_location
             };
 

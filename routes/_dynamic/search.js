@@ -54,8 +54,7 @@ exports.search = function(req,res) {
         //获取动态信息
         function(cb){
 
-            db.field(fields).where(searchParams).limit(restful.skip,restful.limit).select("v_dynamic_user",function(result){
-                
+            db.field(fields).where(searchParams).order("d_id desc").limit(restful.skip,restful.limit).select("v_dynamic_user",function(result){
 
                 if(result == 'ERROR'){
                     return RES.response(res,false,"动态信息获取失败");

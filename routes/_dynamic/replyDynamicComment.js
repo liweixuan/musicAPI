@@ -28,6 +28,14 @@ exports.replyDynamicComment = function(req,res) {
 
             });
 
+        },
+
+        //更新动态评论数量
+        function(cb){
+
+            db.where({d_id:bodyParams.dc_did}).updateInc("d_comment_count","mu_dynamic",function(result){
+                cb();
+            });
         }
 
     ], function (err, result) {

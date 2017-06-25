@@ -21,13 +21,18 @@ exports.configInfo = {
     port			: 3306,
     database	: "musicutopia"
   },
-
+  
   /*** redis缓存数据库配置 ***/
   redisConfig : {
     port             : 6379,
     address          : "127.0.0.1",
     dbName           : 1
   },
+
+  mongodb : {
+		dbName : "musicUtopia",
+		uri : "mongodb://localhost:27017/musicUtopia"
+	},
 
   /*** 日志配置 ***/
   log4 : {
@@ -57,18 +62,8 @@ exports.configInfo = {
 
   /*** 融云相关配置 ***/
   rongCloudConfig : {
-    app_key    : "82hegw5uhg3kx",
-    app_secret : "i9DRHjFJdI"
-  },
-
-  /*** 阿里云OSS相关配置 ***/
-  ossConfig : {
-    app_key       : "LTAIQOR63W9y4iZ9",
-    app_secret    : "e0wITeXt1U9rbJHMruDyd45wRuKUDL",
-    endpoint      : 'https://sts.aliyuncs.com',
-    apiVersion    : '2015-04-01',
-    effectiveTime : 60*60,
-    roleArn       : "acs:ram::1329968499900995:role/readwriteoss"
+    app_key    : "pvxdm17jpgk8r",
+    app_secret : "olvrCHuVteqys"
   }
 
 };

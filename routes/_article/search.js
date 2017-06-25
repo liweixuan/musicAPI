@@ -10,7 +10,7 @@ exports.search = function(req,res) {
     var searchParams = {};
 
     //判断是否增加文章类别查询
-    if(restful.a_cid != undefined){
+    if(restful.a_cid != undefined && restful.a_cid != 0){
        searchParams.a_cid = restful.a_cid;
     }
     //获取未删除的
@@ -70,7 +70,7 @@ exports.search = function(req,res) {
 				tasks.push(function (callback) {
 
                     //判断是否为图片文章
-                    if(articleItem.a_type == 1){
+                    if(articleItem.a_type == 3){
 
                         //查询文章图片
                         db.where({"ai_aid" : articleItem.a_id,"ai_is_delete":0}).order("ai_order desc").select("mu_article_image",function(result){
